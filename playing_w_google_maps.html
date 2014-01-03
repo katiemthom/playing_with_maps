@@ -1,38 +1,68 @@
-<!-- 1. get input: points A, B, C, D in lat/lng form
-2. calc a-c-d-b (and a-b, find difference) and c-a-b-d (and c-d, find difference) and see which is shorter
-3. return the shorter route (visualized?) -->
-
-
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <meta charset="utf-8">
-    <style type="text/css">
-      html { height: 100% }
-      body { height: 100%; margin: 0; padding: 0 }
-      #map-canvas { height: 100% }
-      #panel {
-        position: absolute;
-        top: 5px;
-        left: 50%;
-        margin-left: -180px;
-        z-index: 5;
-        background-color: #fff;
-        padding: 5px;
-        border: 1px solid #999;
-      }
-    </style>
-    <script type="text/javascript"
-      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqpaXPgEy6pBQRlt7t9SXOJLq1_qaXLJk&sensor=false">
-    </script>
-    <script type="text/javascript" src="playing_w_google_maps.js">
-    </script>
-  </head>
-  <body>
-    <div id="panel">
-      <button id="start" onclick="findDistances();">Show Route</button>
-    </div>
-    <div id="map-canvas"/>
-  </body>
+    <head>
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+        <meta charset="utf-8">
+        <link href='http://fonts.googleapis.com/css?family=Trocchi' rel='stylesheet' type='text/css'>
+        <style type="text/css">
+            html { height: 100% }
+            body { height: 100%; margin: 0; padding: 0 }
+            #map-canvas { height: 100% }
+            #panel {
+                position: absolute;
+                top: 5px;
+                left: 22%;
+                margin-left: -180px;
+                z-index: 5;
+                background-color: #fff;
+                padding: 5px;
+                border: 1px solid #999;
+            }
+        </style>
+        <script type="text/javascript"
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCqpaXPgEy6pBQRlt7t9SXOJLq1_qaXLJk&sensor=false"></script>
+        <script type="text/javascript" src="playing_w_google_maps.js"></script>
+    </head>
+    <body>
+        <div id="panel">
+            Start (A): 
+            <select id="a">
+            <option value="683 Sutter St, San Francisco, CA 94109">Hackbright Academy</option>
+            <option value="1 Telegraph Hill Blvd, San Francisco, CA 94133">Coit Tower</option>
+            <option value="1658 Market St, San Francisco, CA 94102">Zuni Cafe</option>
+            <option value="3101 24th St, San Francisco, CA">Philz Coffee</option>
+            <option value="2295 Harrison St, San Francisco, CA">Mission Cliffs</option>
+            <option value="566 Dolores St, San Francisco, CA">Dolores Park</option>
+            </select>
+            End (B): 
+            <select id="b">
+            <option value="683 Sutter St, San Francisco, CA 94109">Hackbright Academy</option>
+            <option value="1 Telegraph Hill Blvd, San Francisco, CA 94133">Coit Tower</option>
+            <option value="1658 Market St, San Francisco, CA 94102">Zuni Cafe</option>
+            <option value="3101 24th St, San Francisco, CA">Philz Coffee</option>
+            <option value="2295 Harrison St, San Francisco, CA">Mission Cliffs</option>
+            <option value="566 Dolores St, San Francisco, CA">Dolores Park</option>
+            </select>
+            Start (C): 
+            <select id="c">
+            <option value="683 Sutter St, San Francisco, CA 94109">Hackbright Academy</option>
+            <option value="1 Telegraph Hill Blvd, San Francisco, CA 94133">Coit Tower</option>
+            <option value="1658 Market St, San Francisco, CA 94102">Zuni Cafe</option>
+            <option value="3101 24th St, San Francisco, CA">Philz Coffee</option>
+            <option value="2295 Harrison St, San Francisco, CA">Mission Cliffs</option>
+            <option value="566 Dolores St, San Francisco, CA">Dolores Park</option>
+            </select>
+            End (D): 
+            <select id="d">
+            <option value="683 Sutter St, San Francisco, CA 94109">Hackbright Academy</option>
+            <option value="1 Telegraph Hill Blvd, San Francisco, CA 94133">Coit Tower</option>
+            <option value="1658 Market St, San Francisco, CA 94102">Zuni Cafe</option>
+            <option value="3101 24th St, San Francisco, CA">Philz Coffee</option>
+            <option value="2295 Harrison St, San Francisco, CA">Mission Cliffs</option>
+            <option value="566 Dolores St, San Francisco, CA">Dolores Park</option>
+            </select>
+            <button id="start" onclick="findDistances();">Show Route w/ Shortest Detour</button>
+        </div>
+        <div id="map-canvas"/>
+    </body>
 </html>

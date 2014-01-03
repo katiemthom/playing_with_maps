@@ -1,22 +1,26 @@
 var directionsDisplay;
 var directionsService = new google.maps.DirectionsService();
 var map; 
-
-var stops = {
-    a: new google.maps.LatLng(37.7800, -122.4150),
-    b: new google.maps.LatLng(37.7850, -122.4200),
-    c: new google.maps.LatLng(37.7900, -122.4100),
-    d: new google.maps.LatLng(37.7950, -122.4050)
-}
-
 var service = new google.maps.DistanceMatrixService();
 
 
 function findDistances() {
+    var a = document.getElementById('a').value;
+    var b = document.getElementById('b').value;
+    var c = document.getElementById('c').value;
+    var d = document.getElementById('d').value;
+
+    var waypoints = {
+        a: {location: a},
+        b: {location: b},
+        c: {location: c},
+        d: {location: d}
+    }
+
     service.getDistanceMatrix(
     {
-        origins: [stops.a, stops.b, stops.c, stops.d],
-        destinations: [stops.a, stops.b, stops.c, stops.d],
+        origins: [a, b, c, d],
+        destinations: [a, b, c, d],
         travelMode: google.maps.TravelMode.DRIVING,
         avoidHighways: false,
         avoidTolls: false
@@ -32,13 +36,11 @@ function findDistances() {
             var distBD = response.rows[1].elements[3].distance.value;
             var routeOne = (distAC + distCD + distDB ) - distAB;
             var routeTwo = (distCA + distAB + distBD ) - distCD; 
-            console.log(routeOne);
-            console.log(routeTwo);
             // pick which route is shorter and then find directions and show them 
             if (routeOne < routeTwo) {
                  var request = {
-                    origin:stops.a,
-                    destination:stops.b,
+                    origin:a,
+                    destination:b,
                     travelMode: google.maps.TravelMode.DRIVING,
                     waypoints: [waypoints.c, waypoints.d]
                 };
@@ -48,8 +50,8 @@ function findDistances() {
                 }});
             } else {
                 var request = {
-                    origin:stops.c,
-                    destination:stops.d,
+                    origin:c,
+                    destination:d,
                     travelMode: google.maps.TravelMode.DRIVING,
                     waypoints: [waypoints.a, waypoints.b]
                 };
@@ -58,17 +60,8 @@ function findDistances() {
                     directionsDisplay.setDirections(response); 
                 }});
             }
-
-    }
-
+        }
     });
-}
-
-var waypoints = {
-    a: {location: stops.a},
-    b: {location: stops.b},
-    c: {location: stops.c},
-    d: {location: stops.d}
 }
 
 function initialize() {
@@ -82,14 +75,5 @@ function initialize() {
     directionsDisplay.setMap(map);
 }
 
-    
-
 google.maps.event.addDomListener(window, 'load', initialize);
 
-// findDistances();
-
-//calcRoute(responseHandler);
-
-// a - b - (a - c + c - d  + d - b)
-
-// c - d - (c - a + a - b + b  - d)
